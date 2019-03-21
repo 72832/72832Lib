@@ -29,9 +29,6 @@
 //
 // ------------------------------------------------------------------------
 
-#ifndef __BNS_LIB_H
-#define __BNS_LIB_H
-
 // Compilers (make a new instance for your specific use case)
 #define cROBOTC 0
 #define cGCC    1
@@ -64,7 +61,5 @@
   #include "Modules\Core\BNSCore.h"
   #include "Modules\Core\BNSHeap.h"
   #include "Modules\Core\Matrix\BNSMatrix.h"
-
-#endif
 */
 #endif
