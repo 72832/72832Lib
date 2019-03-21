@@ -31,7 +31,7 @@ void rightFunc(int power){  //send a condition it will set the right drive equal
 	motor[right3] = power;
 }
 
-void pidCtrl(int reqDist, int leftTurn = 0, int unitType = 0){
+void pidCtrl(int reqDist, int leftTurn = 0, int unitType = 0, clicksPer360DegreeTurn = 1440){//this variable will need to be changed everytime you change your drive and be accurate to the click
 
 	int pidDist;  //this value will eventually be used in the error condition
 
@@ -47,6 +47,11 @@ void pidCtrl(int reqDist, int leftTurn = 0, int unitType = 0){
 	}else if(unitType == 3){ //this value is tiles (2 feet)
 
 		pidDist = reqDist * /*(degrees / Wheel Circumference) * 24*/ (8640/(4*3.141529));
+
+	}else if(unitType == -1){
+
+		pidDist = reqDist * (
+			clicksPer360DegreeTurn / 360);//this variable will need to be changed everytime you change your drive and be accurate to the click
 
 	}else if(unitType == 0){ //this unit type is, by default, clicks
 
@@ -102,8 +107,9 @@ void pre_auton(){
 	// to display your team name on the LCD in this function.
 	// bDisplayCompetitionStatusOnLcd = false;
 
-  // All activities that occur before the competition starts
-  // Example: clearing encoders, setting servo positions, ...
+	// All activities that occur before the competition start
+	// Example: clearing encoders, setting servo positions, ...
+	SensorValue[exampleEncoderName]=0;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -129,6 +135,8 @@ task autonomous(){
 
 	pidCtrl(.5, 0, 3);  //this will also run the wheels 12 inches using the unitType tiles
 
+	pidCtrl(90, 1, -1); //this will rotate the drive 90 degrees left (for this to work you will need to change a variable)
+
 }
 
 /*---------------------------------------------------------------------------*/
@@ -144,8 +152,7 @@ task autonomous(){
 task usercontrol(){
   // User control code here, inside the loop
 
-  while (true)
-  {
+  while (true){
     // This is the main execution loop for the user control program.
     // Each time through the loop your program should update motor + servo
     // values based on feedback from the joysticks.
