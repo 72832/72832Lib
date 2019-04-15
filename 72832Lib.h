@@ -32,10 +32,11 @@
 // Compilers (make a new instance for your specific use case)
 #define cROBOTC 0
 #define cGCC    1
+#define vexcode 2
 
 // --------------------------
 // Set which compiler to use
-#define COMPILER cROBOTC
+#define COMPILER vexcode
 // --------------------------
 
 // ROBOTC compiling
@@ -62,5 +63,9 @@
   #include "Modules\Core\BNSHeap.h"
   #include "Modules\Core\Matrix\BNSMatrix.h"
 */
+
+#elif COMPILER == vexcode
+  #include "includes/PidController.c"
+  #include "includes/rampingController.cpp"
 
 #endif
